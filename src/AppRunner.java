@@ -36,7 +36,7 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
+        print("Денег на сумму: " + sumOfAllMany.getAmount());
 
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
@@ -55,6 +55,8 @@ public class AppRunner {
     }
 
     private void chooseAction(UniversalArray<Product> products) {
+        print(" a - Пополнить баланс монетами");
+        print(" l - Пополнить баланс купюрами");
         showActions(products);
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
@@ -70,7 +72,7 @@ public class AppRunner {
                 }
             }
         } catch (IllegalArgumentException e) {
-            print("Недопустимая буква. Попрбуйте еще раз.");
+            print("Недопустимая буква. Попробуйте еще раз.");
             chooseAction(products);
         }
 
