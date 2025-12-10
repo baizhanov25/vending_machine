@@ -70,6 +70,20 @@ public class AppRunner {
         showActions(products);
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
+        if ("a".equalsIgnoreCase(action)) {
+            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
+            sumCoinAndMany();
+            print("Вы пополнили баланс на 10");
+            return;
+        }
+
+        if ("l".equalsIgnoreCase(action)) {
+            moneyAcceptor.setAmount(moneyAcceptor.getAmount() + 100);
+            sumCoinAndMany();
+            print("Вы пополнили баланс на 100");
+            return;
+        }
+
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
