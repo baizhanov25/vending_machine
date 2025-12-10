@@ -1,5 +1,6 @@
 import enums.ActionLetter;
 import model.*;
+import model.MoneyAcceptor;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
 
@@ -10,6 +11,8 @@ public class AppRunner {
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
 
     private final CoinAcceptor coinAcceptor;
+    private final MoneyAcceptor moneyAcceptor;
+    private final SumOfAllMany sumOfAllMany;
 
     private static boolean isExit = false;
 
@@ -23,6 +26,9 @@ public class AppRunner {
                 new Pistachios(ActionLetter.G, 130)
         });
         coinAcceptor = new CoinAcceptor(100);
+        moneyAcceptor = new MoneyAcceptor(150);
+
+        sumOfAllMany = new SumOfAllMany(coinAcceptor.getAmount(), moneyAcceptor.getAmount());
     }
 
     public static void run() {
