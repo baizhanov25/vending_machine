@@ -38,10 +38,6 @@ public class AppRunner {
         }
     }
 
-    private void sumCoinAndMany() {
-        sumOfAllMany.setAmount(coinAcceptor.getAmount() + moneyAcceptor.getAmount());
-    }
-
     private void startSimulation() {
         print("В автомате доступны:");
         showProducts(products);
