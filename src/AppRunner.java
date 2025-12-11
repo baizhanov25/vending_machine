@@ -71,15 +71,13 @@ public class AppRunner {
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
         if ("a".equalsIgnoreCase(action)) {
-            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
-            sumCoinAndMany();
+            sumOfAllMany.setAmount(sumOfAllMany.getAmount() + 10);
             print("Вы пополнили баланс на 10");
             return;
         }
 
         if ("l".equalsIgnoreCase(action)) {
-            moneyAcceptor.setAmount(moneyAcceptor.getAmount() + 100);
-            sumCoinAndMany();
+            sumOfAllMany.setAmount(sumOfAllMany.getAmount() + 100);
             print("Вы пополнили баланс на 100");
             return;
         }
