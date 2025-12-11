@@ -1,5 +1,6 @@
 import enums.ActionLetter;
 import model.*;
+import model.MoneyAcceptor;
 import util.UniversalArray;
 import util.UniversalArrayImpl;
 
@@ -10,6 +11,8 @@ public class AppRunner {
     private final UniversalArray<Product> products = new UniversalArrayImpl<>();
 
     private final CoinAcceptor coinAcceptor;
+    private final MoneyAcceptor moneyAcceptor;
+    private final SumOfAllMany sumOfAllMany;
 
     private static boolean isExit = false;
 
@@ -23,6 +26,9 @@ public class AppRunner {
                 new Pistachios(ActionLetter.G, 130)
         });
         coinAcceptor = new CoinAcceptor(100);
+        moneyAcceptor = new MoneyAcceptor(150);
+
+        sumOfAllMany = new SumOfAllMany(coinAcceptor.getAmount(), moneyAcceptor.getAmount());
     }
 
     public static void run() {
@@ -36,7 +42,7 @@ public class AppRunner {
         print("В автомате доступны:");
         showProducts(products);
 
-        print("Монет на сумму: " + coinAcceptor.getAmount());
+        print("Денег на сумму: " + sumOfAllMany.getAmount());
 
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         allowProducts.addAll(getAllowedProducts().toArray());
@@ -47,7 +53,7 @@ public class AppRunner {
     private UniversalArray<Product> getAllowedProducts() {
         UniversalArray<Product> allowProducts = new UniversalArrayImpl<>();
         for (int i = 0; i < products.size(); i++) {
-            if (coinAcceptor.getAmount() >= products.get(i).getPrice()) {
+            if (sumOfAllMany.getAmount() >= products.get(i).getPrice()) {
                 allowProducts.add(products.get(i));
             }
         }
@@ -55,19 +61,27 @@ public class AppRunner {
     }
 
     private void chooseAction(UniversalArray<Product> products) {
-        print(" a - Пополнить баланс");
+        print(" a - Пополнить баланс монетами");
+        print(" l - Пополнить баланс купюрами");
         showActions(products);
         print(" h - Выйти");
         String action = fromConsole().substring(0, 1);
         if ("a".equalsIgnoreCase(action)) {
-            coinAcceptor.setAmount(coinAcceptor.getAmount() + 10);
+            sumOfAllMany.setAmount(sumOfAllMany.getAmount() + 10);
             print("Вы пополнили баланс на 10");
             return;
         }
+
+        if ("l".equalsIgnoreCase(action)) {
+            sumOfAllMany.setAmount(sumOfAllMany.getAmount() + 100);
+            print("Вы пополнили баланс на 100");
+            return;
+        }
+
         try {
             for (int i = 0; i < products.size(); i++) {
                 if (products.get(i).getActionLetter().equals(ActionLetter.valueOf(action.toUpperCase()))) {
-                    coinAcceptor.setAmount(coinAcceptor.getAmount() - products.get(i).getPrice());
+                    sumOfAllMany.setAmount(sumOfAllMany.getAmount() - products.get(i).getPrice());
                     print("Вы купили " + products.get(i).getName());
                     break;
                 }

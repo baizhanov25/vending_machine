@@ -6,7 +6,9 @@ public enum ActionLetter {
     D("d"),
     E("e"),
     F("f"),
-    G("g");
+    G("g"),
+    H("h"),
+    L("l");
 
     private String value;
 
